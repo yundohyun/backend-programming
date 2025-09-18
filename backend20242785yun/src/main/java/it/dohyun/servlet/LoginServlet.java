@@ -18,9 +18,15 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doGet Method Called!");
+		String id = req.getParameter("id");
+		String password = req.getParameter("password");
+		System.out.println("ID: " + id + ", PW: " + password);
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		doGet(req, res);
+		System.out.println("doPost Method Called!");
+		String id = req.getParameter("id");
+		String password = req.getParameter("password");
+		System.out.println("ID: " + id + ", PW: " + password);
 	}
 }
