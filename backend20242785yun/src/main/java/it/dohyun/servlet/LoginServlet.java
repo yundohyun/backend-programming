@@ -15,18 +15,20 @@ public class LoginServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		System.out.println("Init Method Called!");
 	}
-
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("doGet Method Called!");
+	
+	private void doLogin(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String id = req.getParameter("id");
 		String password = req.getParameter("password");
 		System.out.println("ID: " + id + ", PW: " + password);
 	}
 
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		System.out.println("doGet Method Called!");
+		this.doLogin(req, res);
+	}
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doPost Method Called!");
-		String id = req.getParameter("id");
-		String password = req.getParameter("password");
-		System.out.println("ID: " + id + ", PW: " + password);
+		this.doLogin(req, res);
 	}
 }
