@@ -1,5 +1,6 @@
 package it.dohyun.servlet;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,6 +21,15 @@ public class LoginServlet extends HttpServlet {
 		String id = req.getParameter("id");
 		String password = req.getParameter("password");
 		System.out.println("ID: " + id + ", PW: " + password);
+		
+		boolean accountExist = id.equals("admin") && password.equals("admin");
+		
+//		// JSP Redirect
+//		res.sendRedirect(accountExist ? "loginOk.jsp" : "loginFail.jsp");
+		
+		// JSP Rendering
+		RequestDispatcher rd = req.getRequestDispatcher(accountExist ? "loginOk.jsp" : "loginFail.jsp");
+		rd.forward(req, res);
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
