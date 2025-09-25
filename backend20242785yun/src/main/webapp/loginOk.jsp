@@ -6,7 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body>	
 <h1>로그인 성공</h1>
+<p>ID: <%= session.getAttribute("id") %></p>
 </body>
 </html>
