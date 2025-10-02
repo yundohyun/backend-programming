@@ -7,13 +7,13 @@
 <title>홈</title>
 </head>
 <body>
-	<h3>메뉴 : 홈 학교소개</h3>
-	
-	<% 
+	<%
 		Object user = application.getAttribute("user");
 		Object message = application.getAttribute("message");
-		if (user != null) {
 	%>
+	<h3>메뉴 : 홈 학교소개 <% out.print(user == null ? "회원가입" : "내정보"); %></h3>
+	
+	<% if (user != null) { %>
 		<p><%= user %>님, 안녕하세요!</p>
 		<form method="post" action="logout.do">
 			<input type="submit" value="로그아웃">
