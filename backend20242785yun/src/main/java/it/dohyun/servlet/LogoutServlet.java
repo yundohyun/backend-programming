@@ -15,7 +15,7 @@ public class LogoutServlet extends HttpServlet {
     private void doLogout(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     	ServletContext ctx = req.getServletContext();
 		ctx.removeAttribute("user");
-		res.sendRedirect("loginForm.jsp");
+		res.sendRedirect("index.jsp");
     }
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

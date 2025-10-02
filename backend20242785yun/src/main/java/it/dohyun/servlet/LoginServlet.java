@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 		if (accountExist) ctx.setAttribute("user", id);
 		else ctx.setAttribute("message", "유저 정보를 찾을 수 없습니다.");
 		
-		res.sendRedirect("loginForm.jsp");
+		res.sendRedirect("index.jsp");
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
