@@ -2,6 +2,7 @@ package it.dohyun.servlet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,24 +29,30 @@ public class LoginServlet extends HttpServlet {
 		
 //		// JSP Redirect
 //		res.sendRedirect(accountExist ? "loginOk.jsp" : "loginFail.jsp");
+//
+//		if (accountExist) {
+//			HttpSession session = req.getSession();
+//			session.setAttribute("id", id);
+//		}
+//		
+//		// JSP Rendering
+//		RequestDispatcher rd = req.getRequestDispatcher(accountExist ? "loginOk.jsp" : "loginFail.jsp");
+//		rd.forward(req, res);
 
-		if (accountExist) {
-			HttpSession session = req.getSession();
-			session.setAttribute("id", id);
-		}
+		ServletContext ctx = req.getServletContext();
+		if (accountExist) ctx.setAttribute("user", id);
+		else ctx.setAttribute("message", "유저 정보를 찾을 수 없습니다.");
 		
-		// JSP Rendering
-		RequestDispatcher rd = req.getRequestDispatcher(accountExist ? "loginOk.jsp" : "loginFail.jsp");
-		rd.forward(req, res);
+		res.sendRedirect("loginForm.jsp");
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("doGet Method Called!");
+		System.out.println("doGet Method Called in /login.do!");
 		this.doLogin(req, res);
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("doPost Method Called!");
+		System.out.println("doPost Method Called in /login.do!");
 		this.doLogin(req, res);
 	}
 }
