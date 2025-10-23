@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/login.do")
 public class LoginServlet extends HttpServlet {
@@ -25,8 +26,26 @@ public class LoginServlet extends HttpServlet {
 		String password = req.getParameter("password");
 		System.out.println("ID: " + id + ", PW: " + password);
 		
-		boolean accountExist = id.equals("admin") && password.equals("admin");
+		MemberDto memberDto = new MemberDto();
+		memberDto.setMemberid(id);
+		memberDto.setPassword(password);
 		
+		MemberDao memberDao = new MemberDao();
+		
+		try {
+			boolean accountExist = memberDao.login(memberDto);
+
+			ServletContext ctx = req.getServletContext();
+			if (accountExist) ctx.setAttribute("user", id);
+			else ctx.setAttribute("message", "유저 정보를 찾을 수 없습니다.");
+			
+			res.sendRedirect("index.jsp");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+//		
+//		boolean accountExist = id.equals("admin") && password.equals("admin");
+//		
 //		// JSP Redirect
 //		res.sendRedirect(accountExist ? "loginOk.jsp" : "loginFail.jsp");
 //
@@ -38,12 +57,6 @@ public class LoginServlet extends HttpServlet {
 //		// JSP Rendering
 //		RequestDispatcher rd = req.getRequestDispatcher(accountExist ? "loginOk.jsp" : "loginFail.jsp");
 //		rd.forward(req, res);
-
-		ServletContext ctx = req.getServletContext();
-		if (accountExist) ctx.setAttribute("user", id);
-		else ctx.setAttribute("message", "유저 정보를 찾을 수 없습니다.");
-		
-		res.sendRedirect("index.jsp");
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

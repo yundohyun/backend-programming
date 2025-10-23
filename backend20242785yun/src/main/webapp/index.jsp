@@ -8,10 +8,10 @@
 </head>
 <body>
 	<%
-		Object user = application.getAttribute("user");
 		Object message = application.getAttribute("message");
 	%>
-	<h3>메뉴 : 홈 학교소개 <% out.print(user == null ? "회원가입" : "내정보"); %></h3>
+	
+	<%@ include file="header.jsp" %>
 	
 	<% if (user != null) { %>
 		<p><%= user %>님, 안녕하세요!</p>
